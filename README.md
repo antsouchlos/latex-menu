@@ -2,11 +2,12 @@
 
 A latex template resembling a generic restaurant menu.
 
-
-<img width=180 src="./doc/menu_1.svg" />
-<img width=180 src="./doc/menu_2.svg" />
-<img width=180 src="./doc/menu_3.svg" />
-<img width=180 src="./doc/menu_4.svg" />
+<p float="left">
+    <img width=180 src="./doc/menu_1.svg" />
+    <img width=180 src="./doc/menu_2.svg" />
+    <img width=180 src="./doc/menu_3.svg" />
+    <img width=180 src="./doc/menu_4.svg" />
+</p>
 
 ## Build
 
