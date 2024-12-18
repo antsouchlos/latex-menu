@@ -1,0 +1,170 @@
+\documentclass{article}
+
+\usepackage{titlesec}
+
+%
+%
+% Include packages
+%
+%
+
+
+\usepackage[paper=a5paper, verbose, centering]{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfornament}
+\usepackage{graphicx}
+\usepackage[inkscapepath=build]{svg}
+
+
+%
+%
+% Global document settings and colors
+%
+%
+
+
+\pagenumbering{gobble}
+
+\definecolor{darkgray}{HTML}{282828}
+\definecolor{lightgray}{HTML}{E0E0E0}
+\definecolor{orange}{HTML}{FFB400}
+\definecolor{darkgreen}{HTML}{8FBC8F}
+
+\definecolor{bgcolor}{named}{darkgray}
+\definecolor{ornamentcolor}{named}{orange}
+\definecolor{textcolor}{named}{lightgray}
+\definecolor{highlight1}{named}{lightgray}
+\definecolor{highlight2}{named}{lightgray}
+
+\pagecolor{bgcolor}
+\color{textcolor}
+
+\titleformat{\section}[block]
+    {\Large\bfseries}
+    {}
+    {0pt}
+    {}
+    [\vspace*{-1mm}\noindent\rule{0.75\textwidth}{2pt}\vspace{2mm}]
+
+
+%
+%
+% Custom commands
+%
+%
+
+
+\newcommand{\frontcoverdecorations}[1]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, xshift=0.5cm, yshift=-0.5cm] (NW) at (current page.north west){%
+      \pgfornament[width=2cm,color=ornamentcolor]{#1}};
+    \node[anchor=north east, xshift=-0.5cm, yshift=-0.5cm] (NE) at (current page.north east){%
+      \pgfornament[width=2cm,color=ornamentcolor,symmetry=v]{#1}};
+    \node[anchor=south west, xshift=0.5cm, yshift=0.5cm] (SW) at (current page.south west){%
+      \pgfornament[width=2cm,color=ornamentcolor,symmetry=h]{#1}};
+    \node[anchor=south east, xshift=-0.5cm, yshift=0.5cm] (SE) at (current page.south east){%
+      \pgfornament[width=2cm,color=ornamentcolor,symmetry=c]{#1}};
+
+  \draw[ornamentcolor, line width=.5mm, double distance=0.5mm, double=bgcolor]  (NW.north west) -- (NE.north east) -- (SE.south east) -- (SW.south west) -- cycle;
+
+  \end{tikzpicture}%
+}
+
+\newcommand{\insidedecorations}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north, yshift=-0.5cm] (Top) at (current page.north) {%
+      \pgfornament[width=7cm,color=ornamentcolor]{88}};
+    \node[anchor=south, yshift=0.5cm] (Bottom) at (current page.south) {%
+      \pgfornament[width=7cm,color=ornamentcolor]{88}};
+  \end{tikzpicture}%
+}
+
+\newcommand{\backcoverdecorations}{
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, xshift=0.5cm, yshift=-0.5cm] (NW) at (current page.north west){};
+    \node[anchor=north east, xshift=-0.5cm, yshift=-0.5cm] (NE) at (current page.north east){};
+    \node[anchor=south west, xshift=0.5cm, yshift=0.5cm] (SW) at (current page.south west){};
+    \node[anchor=south east, xshift=-0.5cm, yshift=0.5cm] (SE) at (current page.south east){};
+
+    \draw[ornamentcolor, line width=.5mm] (NW.north west) -- (NE.north east) -- (SE.south east) -- (SW.south west) -- cycle;
+  \end{tikzpicture}%
+}
+
+
+%
+%
+% Document
+%
+%
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \maketitle\covercorners{61}\thispagestyle{empty}
+\frontcoverdecorations{39}\thispagestyle{empty}
+% \maketitle\covercorners{41}\thispagestyle{empty}
+
+\begin{center}
+    \pgfornament[width=3cm,color=highlight1,symmetry=h]{75} \\[0.5em]
+    {\huge \textbf{\textcolor{highlight1}{MENU}}} \\[0.5em]
+    \pgfornament[width=3cm,color=highlight1,symmetry=v]{75} \\[2em]
+    \textit{\textcolor{highlight2}{Please inform your server of any dietary preferences.}} \\
+\end{center}
+
+\vspace{4cm}
+
+\begin{center}
+    \textbf{\textcolor{highlight1}{Bon appetit!}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\insidedecorations
+\section*{Appetizers}
+\label{sec:Apetizers}
+
+\section*{Main Courses}
+\label{sec:Main Courses}
+
+\section*{Drinks}
+\label{sec:Drinks}
+Page 2
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\insidedecorations
+\section*{Reservations}
+\label{sec:Reservations}
+
+\begin{center}
+    \includesvg[width=3cm]{res/reservation}
+\end{center}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Back cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\backcoverdecorations
+\begin{center}
+    \vfill
+    \textit{\textcolor{highlight2}{Thank you for dining at our restaurant! We hope you had a pleasant meal.}} \\
+    \vspace{1cm}
+    \pgfornament[width=3.5cm,color=highlight1]{75} \end{center}
+
+\end{document}
+
