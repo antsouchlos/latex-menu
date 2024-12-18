@@ -9,43 +9,13 @@
 %
 
 
-\usepackage[paper=a5paper, verbose, centering]{geometry}
+\usepackage[paper=a5paper, verbose, centering, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{pgfornament}
 \usepackage{graphicx}
 \usepackage[inkscapepath=build]{svg}
-
-
-%
-%
-% Global document settings and colors
-%
-%
-
-
-\pagenumbering{gobble}
-
-\definecolor{darkgray}{HTML}{282828}
-\definecolor{lightgray}{HTML}{E0E0E0}
-\definecolor{orange}{HTML}{FFB400}
-\definecolor{darkgreen}{HTML}{8FBC8F}
-
-\definecolor{bgcolor}{named}{darkgray}
-\definecolor{ornamentcolor}{named}{orange}
-\definecolor{textcolor}{named}{lightgray}
-\definecolor{highlight1}{named}{lightgray}
-\definecolor{highlight2}{named}{lightgray}
-
-\pagecolor{bgcolor}
-\color{textcolor}
-
-\titleformat{\section}[block]
-    {\Large\bfseries}
-    {}
-    {0pt}
-    {}
-    [\vspace*{-1mm}\noindent\rule{0.75\textwidth}{2pt}\vspace{2mm}]
+\usepackage{fancyhdr}
 
 
 %
@@ -71,7 +41,7 @@
   \end{tikzpicture}%
 }
 
-\newcommand{\insidedecorations}{%
+\newcommand{\insidepagedecorations}{%
   \begin{tikzpicture}[remember picture, overlay]
     \node[anchor=north, yshift=-0.5cm] (Top) at (current page.north) {%
       \pgfornament[width=7cm,color=ornamentcolor]{88}};
@@ -91,6 +61,63 @@
   \end{tikzpicture}%
 }
 
+\newcommand{\menuitem}[3]{
+    \noindent %
+    \begin{minipage}[t]{0.8\textwidth}
+        \begin{flushleft}
+            {\Large \textbf{#1}}
+        \end{flushleft}
+    \end{minipage}%
+    \begin{minipage}[t]{0.2\textwidth}
+        \begin{flushright}
+            {\Large \textbf{#2}}
+        \end{flushright}
+    \end{minipage}\\
+    #3
+    \vspace{5mm} \\
+}
+
+
+%
+%
+% Global document settings and colors
+%
+%
+
+% Define colors
+
+\definecolor{darkgray}{HTML}{282828}
+\definecolor{lightgray}{HTML}{E0E0E0}
+\definecolor{orange}{HTML}{FFB400}
+\definecolor{darkgreen}{HTML}{8FBC8F}
+
+\definecolor{bgcolor}{named}{darkgray}
+\definecolor{ornamentcolor}{named}{orange}
+\definecolor{textcolor}{named}{lightgray}
+\definecolor{highlight1}{named}{lightgray}
+\definecolor{highlight2}{named}{lightgray}
+
+\pagecolor{bgcolor}
+\color{textcolor}
+
+% Set section style
+
+\titleformat{\section}[block]
+    {\Large\bfseries}
+    {}
+    {0pt}
+    {}
+    [\vspace*{-1mm}\noindent\rule{\textwidth}{2pt}\vspace{2mm}]
+
+% Disable page numbering
+
+\pagenumbering{gobble}
+
+% Set up ornaments at top and bottom of each page
+
+\pagestyle{fancy}
+\fancyhead[C]{\insidepagedecorations}
+\renewcommand{\headrulewidth}{0pt}
 
 %
 %
@@ -102,12 +129,13 @@
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Front cover
+% Front Cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \maketitle\covercorners{61}\thispagestyle{empty}
-\frontcoverdecorations{39}\thispagestyle{empty}
-% \maketitle\covercorners{41}\thispagestyle{empty}
+\thispagestyle{empty}
+\frontcoverdecorations{39}
+
+\vspace{1cm}
 
 \begin{center}
     \pgfornament[width=3cm,color=highlight1,symmetry=h]{75} \\[0.5em]
@@ -123,46 +151,55 @@
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Page 2
+% Content
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
-\insidedecorations
 \section*{Appetizers}
 \label{sec:Apetizers}
+
+\menuitem{Bruschetta}{8.00}{Grilled bread topped with diced tomatoes, garlic, and basil.}
+\menuitem{Stuffed Mushrooms}{10.00}{Mushrooms filled with a savory cheese and herb mixture.}
+\menuitem{Caprese Salad}{12.00}{Fresh mozzarella, tomatoes, and basil drizzled with balsamic glaze.}
+\menuitem{Calamari}{14.00}{Lightly breaded and fried calamari served with marinara sauce.}
 
 \section*{Main Courses}
 \label{sec:Main Courses}
 
+\menuitem{Spaghetti Carbonara}{15.00}{Spaghetti with pancetta, eggs, and cheese.}
+\menuitem{Chicken Parmesan}{18.00}{Breaded chicken topped with marinara sauce and cheese.}
+\menuitem{Grilled Salmon}{20.00}{Fresh salmon grilled to perfection.}
+
 \section*{Drinks}
 \label{sec:Drinks}
-Page 2
 
+\menuitem{Soda}{2.00}{Coke, Diet Coke, Sprite, Ginger Ale.}
+\menuitem{Beer}{5.00}{Local craft beers on tap.}
+\menuitem{Wine}{8.00}{Red, white, and rose wines available by the glass.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Page 3
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+\section*{Desserts}
+\label{sec:Desserts}
 
-\insidedecorations
-\section*{Reservations}
-\label{sec:Reservations}
+\menuitem{Tiramisu}{8.00}{Classic Italian dessert made with coffee-soaked ladyfingers and mascarpone cheese.}
+\menuitem{Cannoli}{6.00}{Crispy pastry shell filled with sweet ricotta cheese.}
+
+\vspace{5mm}
 
 \begin{center}
-    \includesvg[width=3cm]{res/reservation}
+    \includesvg[width=3cm]{res/qrcode}
 \end{center}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Back cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 
+\thispagestyle{empty}
 \backcoverdecorations
+
 \begin{center}
     \vfill
-    \textit{\textcolor{highlight2}{Thank you for dining at our restaurant! We hope you had a pleasant meal.}} \\
+    \textit{\textcolor{highlight2}{Thank you for choosing to dine with us. We trust you enjoyed your meal and look forward to serving you again.}} \\
     \vspace{1cm}
     \pgfornament[width=3.5cm,color=highlight1]{75} \end{center}
 
